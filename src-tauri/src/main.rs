@@ -14,7 +14,7 @@ fn main() -> Result<(), Errors> {
 		.ok_or_else(|| Errors::DirectoryCreationError)?;
 
 	let db = Database::new(dirs.data_dir())?;
-	db.init()?;
+	db.initialize_tables()?;
 
     app_api::run(&db);
 

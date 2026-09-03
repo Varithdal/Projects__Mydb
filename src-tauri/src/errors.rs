@@ -2,6 +2,8 @@
 pub enum Errors {
 	SqlConnectionFailure,
 	SqlInitializationError,
-	SqlExecutionError,
-	DirectoryCreationError
+	SqlSelectionError,
+	SqlInsertionError,
+	DirectoryCreationError,
+	DirectoryRemovalError
 }
