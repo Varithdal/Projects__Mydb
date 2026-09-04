@@ -1,5 +1,5 @@
 #[derive(Debug)]
-pub enum Errors {
+pub enum Error {
 	SqlConnectionFailure,
 	SqlInitializationError,
 	SqlSelectionError,

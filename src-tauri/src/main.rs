@@ -1,22 +1,23 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use directories::ProjectDirs;
-use errors::Errors;
-use db_api::Database;
+use app::Result;
+use db::Db;
+use error::Error;
 
-mod app_api;
-mod db_api;
-mod errors;
+mod api;
+mod db;
+mod app;
+mod error;
 
-fn main() -> Result<(), Errors> {
-	let dirs = ProjectDirs::from("com", "varithdal", "Mydb")
-		.ok_or_else(|| Errors::DirectoryCreationError)?;
+fn main() -> Result<()> {
+	let root = app::get_app_root_path()
+		.map_err(|_| Error::DirectoryCreationError)?;
 
-	let db = Database::new(dirs.data_dir())?;
+	let db = Db::new(&root)?;
 	db.initialize_tables()?;
 
-    app_api::run(&db);
+	app::run();
 
 	Ok(())
 }
